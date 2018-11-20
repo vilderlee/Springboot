@@ -1,0 +1,9 @@
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+server:
+  port: 8099
+
+
+logging:
+  config: classpath:log/logback.xml
