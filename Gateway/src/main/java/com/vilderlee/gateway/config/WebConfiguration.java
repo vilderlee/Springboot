@@ -2,10 +2,10 @@ package com.vilderlee.gateway.config;//package com.springboot.consumer.config;
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
-//import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-//import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-//import org.springframework.web.servlet.view.InternalResourceViewResolver;
-//import org.springframework.web.servlet.view.JstlView;
+//import org.springframework.web.web.config.annotation.ResourceHandlerRegistry;
+//import org.springframework.web.web.config.annotation.WebMvcConfigurer;
+//import org.springframework.web.web.view.InternalResourceViewResolver;
+//import org.springframework.web.web.view.JstlView;
 //
 ///**
 // * <pre>

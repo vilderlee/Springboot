@@ -1,6 +1,6 @@
 package com.vilderlee.userservice.config;
 
-import com.vilderlee.userservice.servlet.ServletI;
+import com.vilderlee.userservice.web.ServletI;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ public class ServletRegisterConfiguration {
     public ServletRegistrationBean initServlet(){
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean();
         servletRegistrationBean.setServlet(new ServletI());
-        servletRegistrationBean.addUrlMappings("/ServletI");
+        servletRegistrationBean.addUrlMappings("/ServletI/*");
         return servletRegistrationBean;
     }
 }

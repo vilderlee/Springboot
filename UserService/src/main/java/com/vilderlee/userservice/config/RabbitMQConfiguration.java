@@ -22,8 +22,8 @@ import org.springframework.context.annotation.PropertySource;
  * </pre>
  */
 @Configuration
-@ConfigurationProperties(prefix = "spring.rabbit")
-@PropertySource("rabbitmq.properties")
+@ConfigurationProperties(prefix = "spring.rabbitmq")
+@PropertySource("classpath:rabbitmq.properties")
 public class RabbitMQConfiguration {
 
     private String host;
@@ -66,17 +66,17 @@ public class RabbitMQConfiguration {
 
     @Bean
     public DirectExchange initDirectExchange(){
-       return new DirectExchange("testDirectExchange", true, true);
+       return new DirectExchange("tx1001DirectExchange", true, true);
     }
 
     @Bean
     public Queue initQueue(){
-        return new Queue("testQueue", true);
+        return new Queue("tx1001Queue", true);
     }
 
     @Bean
     public Binding initBinding(){
-        return BindingBuilder.bind(initQueue()).to(initDirectExchange()).with("testQueue");
+        return BindingBuilder.bind(initQueue()).to(initDirectExchange()).with("tx1001Queue");
     }
 
     @Bean()
