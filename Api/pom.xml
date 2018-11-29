@@ -17,4 +17,12 @@
 		<version>1.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
 	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.vilderlee</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

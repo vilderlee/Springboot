@@ -1,6 +1,4 @@
-package com.vilderlee.api.dubbo.request;
-
-import java.io.Serializable;
+package com.vilderlee.common.dubbo;
 
 /**
  * <pre>
@@ -10,7 +8,7 @@ import java.io.Serializable;
  * dell      2018/10/26        TODO
  * </pre>
  */
-public abstract class BaseRequest implements Serializable {
+public abstract class BaseRequest implements Request {
 
     private static final long serialVersionUID = 715425594808341711L;
 

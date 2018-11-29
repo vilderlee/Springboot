@@ -1,5 +1,7 @@
 package com.vilderlee.api.dubbo.request;
 
+import com.vilderlee.common.dubbo.BaseRequest;
+
 /**
  * <pre>
  * Modify Information:
@@ -8,7 +10,7 @@ package com.vilderlee.api.dubbo.request;
  * dell      2018/10/26        TODO
  * </pre>
  */
-public class Request1000 extends BaseRequest{
+public class Request1000 extends BaseRequest {
 
     private String userId;
     private String mobile;

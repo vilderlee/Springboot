@@ -1,6 +1,7 @@
 package com.vilderlee.api.dubbo.response;
 
 import com.vilderlee.api.domain.UserInfo;
+import com.vilderlee.common.dubbo.BaseResponse;
 
 /**
  * <pre>

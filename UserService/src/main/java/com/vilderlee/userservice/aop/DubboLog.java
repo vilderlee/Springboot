@@ -29,7 +29,7 @@ public class DubboLog {
      * 　　　　name-pattern:指定方法名,*代表所有,例如set*,代表以set开头的所有方法.
      * 　　　　param-pattern:指定方法参数(声明的类型),(..)代表所有参数,(*)代表一个参数,(*,String)代表第一个参数为任何值,第二个为String类型.
      */
-    @Pointcut(value = "execution(* com.springboot.provider.service..*ServiceImpl.tx*(..))")
+    @Pointcut(value = "execution(* com.vilderlee.userservice.service..*ServiceImpl.tx*(..))")
     public void pointCut(){}
 
     @Around("pointCut()")

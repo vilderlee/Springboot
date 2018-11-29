@@ -1,6 +1,4 @@
-package com.vilderlee.api.dubbo.response;
-
-import java.io.Serializable;
+package com.vilderlee.common.dubbo;
 
 /**
  * <pre>
@@ -10,7 +8,7 @@ import java.io.Serializable;
  * dell      2018/10/26        TODO
  * </pre>
  */
-public abstract class BaseResponse implements Serializable {
+public abstract class BaseResponse implements Response {
 
     private static final long serialVersionUID = -3147659417946422149L;
 
