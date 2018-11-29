@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </pre>
  */
 public abstract class BaseMessage implements Serializable {
-    private static final long serialVersionUID = 5408478284415098937L;
+
     private String messageId;
 
     public String getMessageId() {

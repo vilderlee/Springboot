@@ -1,6 +1,9 @@
 package com.vilderlee.gateway.config;
 
+import com.vilderlee.gateway.mq.Tx1001Receieve;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +18,8 @@ import org.springframework.context.annotation.PropertySource;
  * </pre>
  */
 @Configuration
-@ConfigurationProperties(prefix = "spring.rabbit")
-@PropertySource("rabbitmq.properties")
+@ConfigurationProperties(prefix = "spring.rabbitmq")
+@PropertySource("classpath:rabbitmq.properties")
 public class RabbitMQConfiguration {
     private String host;
     private int port;
@@ -46,8 +49,22 @@ public class RabbitMQConfiguration {
         return connectionFactory;
     }
 
-    public
 
+    @Bean
+    public MessageListenerAdapter initMessageListenerAdapter(){
+        MessageListenerAdapter messageListenerAdapter = new MessageListenerAdapter(new Tx1001Receieve());
+        messageListenerAdapter.setDefaultListenerMethod("handle");
+        return messageListenerAdapter;
+    }
+
+    @Bean
+    public SimpleMessageListenerContainer initSimpleMessageListenerContainer(){
+        SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
+        simpleMessageListenerContainer.setConnectionFactory(initCachingConnectionFactory());
+        simpleMessageListenerContainer.setMessageListener(initMessageListenerAdapter());
+        simpleMessageListenerContainer.setQueueNames("tx1001Queue");
+        return simpleMessageListenerContainer;
+    }
 
     public String getHost() {
         return host;

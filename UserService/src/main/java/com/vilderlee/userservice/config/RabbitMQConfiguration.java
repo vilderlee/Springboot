@@ -95,7 +95,7 @@ public class RabbitMQConfiguration {
         });
 
         rabbitTemplate.setConfirmCallback((CorrelationData correlationData, boolean ack, String cause)->{
-            System.out.println("消息已发送到broker！消息Id:" + correlationData.getId() );
+//            System.out.println("消息已发送到broker！消息Id:" + correlationData.getId() );
         });
 
         return rabbitTemplate;
