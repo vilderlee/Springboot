@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-@DubboComponentScan("com.springboot.consumer.service")
+@DubboComponentScan("com.vilderlee.api.dubbo.service")
 public class GatewayApplication {
 
     public static void main(String[] args) {

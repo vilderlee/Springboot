@@ -1,5 +1,6 @@
 package com.vilderlee.userservice.config;
 
+import com.vilderlee.tools.util.TripleDESUtil;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -46,16 +47,11 @@ public class JedisConfiguration extends CachingConfigurerSupport {
         return jedisPoolConfig;
     }
 
-    @Bean public Jedis initJedis() {
-        JedisPool jedisPool = new JedisPool(initJedisPoolConfig(), host, port, timeout, password);
+    @Bean public Jedis initJedis() throws Exception {
+        JedisPool jedisPool = new JedisPool(initJedisPoolConfig(), host, port, timeout, TripleDESUtil.des3DecodeCBC(password));
         return jedisPool.getResource();
     }
 
-    @Override
-    public CacheManager cacheManager() {
-        RedisCacheManager redisCacheManager = RedisCacheManager.create((RedisConnectionFactory) initJedis());
-        return  redisCacheManager;
-    }
 
     public String getHost() {
         return host;

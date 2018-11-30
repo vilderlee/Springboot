@@ -37,7 +37,7 @@ public class DubboLog {
         Object object = point.getArgs()[0];
         log.info("dubbo接收到的数据为---->" + object.toString());
         Object result = point.proceed();
-        log.info("dubb返回的数据为---->" + result.toString());
+        log.info("dubbo返回的数据为---->" + result.toString());
         return result;
     }
 }
