@@ -1,6 +1,7 @@
 package com.vilderlee.gateway.config;
 
 import com.vilderlee.gateway.mq.Tx1001Receieve;
+import com.vilderlee.tools.util.TripleDESUtil;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
@@ -36,12 +37,12 @@ public class RabbitMQConfiguration {
      * @return
      */
     @Bean
-    public CachingConnectionFactory initCachingConnectionFactory(){
+    public CachingConnectionFactory initCachingConnectionFactory() throws Exception {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
         connectionFactory.setHost(host);
         connectionFactory.setPort(port);
-        connectionFactory.setUsername(username);
-        connectionFactory.setPassword(password);
+        connectionFactory.setUsername(TripleDESUtil.des3DecodeCBC(username));
+        connectionFactory.setPassword(TripleDESUtil.des3DecodeCBC(password));
         connectionFactory.setVirtualHost(virtualHost);
         connectionFactory.setPublisherConfirms(publisherConfirms);
         connectionFactory.setPublisherReturns(publisherReturns);
@@ -58,7 +59,7 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    public SimpleMessageListenerContainer initSimpleMessageListenerContainer(){
+    public SimpleMessageListenerContainer initSimpleMessageListenerContainer() throws Exception {
         SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
         simpleMessageListenerContainer.setConnectionFactory(initCachingConnectionFactory());
         simpleMessageListenerContainer.setMessageListener(initMessageListenerAdapter());

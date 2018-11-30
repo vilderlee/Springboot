@@ -1,6 +1,7 @@
 package com.vilderlee.userservice.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.vilderlee.tools.util.TripleDESUtil;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,12 +30,12 @@ public class DataSourceConfiguration {
     private String validationQuery;
 
     @Bean
-    public DataSource initDataSource(){
+    public DataSource initDataSource() throws Exception {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(driverClass);
         dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
+        dataSource.setUsername(TripleDESUtil.des3DecodeCBC(username));
+        dataSource.setPassword(TripleDESUtil.des3DecodeCBC(password));
         dataSource.setInitialSize(initialSize);
         dataSource.setMaxActive(maxActive);
         dataSource.setValidationQuery(validationQuery);

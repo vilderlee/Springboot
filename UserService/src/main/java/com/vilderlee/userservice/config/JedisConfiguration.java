@@ -1,9 +1,14 @@
 package com.vilderlee.userservice.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -21,7 +26,8 @@ import redis.clients.jedis.JedisPoolConfig;
 @Configuration
 @ConfigurationProperties(prefix = "springboot.redis")
 @PropertySource("classpath:redis.properties")
-public class JedisConfiguration {
+@EnableCaching
+public class JedisConfiguration extends CachingConfigurerSupport {
 
     private String host;
     private int port;
@@ -43,6 +49,12 @@ public class JedisConfiguration {
     @Bean public Jedis initJedis() {
         JedisPool jedisPool = new JedisPool(initJedisPoolConfig(), host, port, timeout, password);
         return jedisPool.getResource();
+    }
+
+    @Override
+    public CacheManager cacheManager() {
+        RedisCacheManager redisCacheManager = RedisCacheManager.create((RedisConnectionFactory) initJedis());
+        return  redisCacheManager;
     }
 
     public String getHost() {

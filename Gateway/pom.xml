@@ -73,6 +73,11 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>com.vilderlee</groupId>
+            <artifactId>tools</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

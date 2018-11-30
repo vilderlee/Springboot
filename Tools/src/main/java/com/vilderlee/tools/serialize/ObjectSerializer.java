@@ -1,4 +1,4 @@
-package com.vilderlee.util.serialize;
+package com.vilderlee.tools.serialize;
 
 import java.io.*;
 

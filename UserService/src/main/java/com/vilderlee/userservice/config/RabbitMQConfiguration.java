@@ -1,6 +1,7 @@
 package com.vilderlee.userservice.config;
 
-import com.vilderlee.util.serialize.ObjectSerializer;
+import com.vilderlee.tools.serialize.ObjectSerializer;
+import com.vilderlee.tools.util.TripleDESUtil;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
@@ -41,12 +42,12 @@ public class RabbitMQConfiguration {
      * @return
      */
     @Bean
-    public CachingConnectionFactory initCachingConnectionFactory(){
+    public CachingConnectionFactory initCachingConnectionFactory() throws Exception {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
         connectionFactory.setHost(host);
         connectionFactory.setPort(port);
-        connectionFactory.setUsername(username);
-        connectionFactory.setPassword(password);
+        connectionFactory.setUsername(TripleDESUtil.des3DecodeCBC(username));
+        connectionFactory.setPassword(TripleDESUtil.des3DecodeCBC(password));
         connectionFactory.setVirtualHost(virtualHost);
         connectionFactory.setPublisherConfirms(publisherConfirms);
         connectionFactory.setPublisherReturns(publisherReturns);
@@ -60,7 +61,7 @@ public class RabbitMQConfiguration {
      * @return
      */
     @Bean
-    public AmqpAdmin initAmqpAdmin(){
+    public AmqpAdmin initAmqpAdmin() throws Exception {
         return new RabbitAdmin(initCachingConnectionFactory());
     }
 
@@ -80,7 +81,7 @@ public class RabbitMQConfiguration {
     }
 
     @Bean()
-    public RabbitTemplate init() {
+    public RabbitTemplate init() throws Exception {
         RabbitTemplate rabbitTemplate = new RabbitTemplate();
         rabbitTemplate.setConnectionFactory(initCachingConnectionFactory());
         rabbitTemplate.setExchange(initDirectExchange().getName());
@@ -95,7 +96,7 @@ public class RabbitMQConfiguration {
         });
 
         rabbitTemplate.setConfirmCallback((CorrelationData correlationData, boolean ack, String cause)->{
-//            System.out.println("消息已发送到broker！消息Id:" + correlationData.getId() );
+            System.out.println("消息已发送到broker！消息Id:" + correlationData.getId() );
         });
 
         return rabbitTemplate;
