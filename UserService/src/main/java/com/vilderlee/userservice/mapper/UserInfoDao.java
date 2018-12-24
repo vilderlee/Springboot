@@ -1,6 +1,7 @@
 package com.vilderlee.userservice.mapper;
 
 import com.vilderlee.api.domain.UserInfo;
+import org.springframework.cache.annotation.Cacheable;
 
 /**
  * <pre>
@@ -11,5 +12,7 @@ import com.vilderlee.api.domain.UserInfo;
  * </pre>
  */
 public interface UserInfoDao {
+
+    @Cacheable("userId")
     UserInfo getUserInfo(String userId);
 }

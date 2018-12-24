@@ -8,10 +8,13 @@ import com.vilderlee.common.dubbo.BaseResponse;
  * Modify Information:
  * Author       Date           Description
  * ============ ============= ============================
- * dell      2018/10/26        TODO
+ * VilderLee      2018/10/26        TODO
  * </pre>
  */
 public class Response1000 extends BaseResponse {
+
+    private static final long serialVersionUID = -3147659417946422141L;
+
     private UserInfo user;
 
     public UserInfo getUser() {

@@ -10,7 +10,7 @@ package com.vilderlee.common.dubbo;
  */
 public abstract class BaseResponse implements Response {
 
-    private static final long serialVersionUID = -3147659417946422149L;
+//    private static final long serialVersionUID = -3147659417946422149L;
 
     private String returnCode;
     private String returnMsg;

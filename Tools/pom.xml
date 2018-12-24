@@ -8,6 +8,7 @@
     <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <name>Tools</name>
     <description>Tools project for Spring Boot</description>
 
     <parent>
@@ -28,9 +29,5 @@
             <artifactId>common</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId></groupId>
-            <artifactId></artifactId>
-        </dependency>
     </dependencies>
 </project>

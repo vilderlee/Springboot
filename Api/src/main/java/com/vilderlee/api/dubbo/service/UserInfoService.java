@@ -14,5 +14,4 @@ import com.vilderlee.api.dubbo.response.Response1000;
 public interface UserInfoService {
 
     Response1000 tx1000(Request1000 request1000);
-
 }

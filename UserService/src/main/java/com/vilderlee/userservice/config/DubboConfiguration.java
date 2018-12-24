@@ -1,6 +1,7 @@
 package com.vilderlee.userservice.config;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
+import com.alibaba.dubbo.config.ConsumerConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -33,6 +34,13 @@ public class DubboConfiguration {
         ApplicationConfig applicationConfig = new ApplicationConfig();
         applicationConfig.setName(name);
         return applicationConfig;
+    }
+
+    @Bean
+    public ConsumerConfig initConsumerConfig(){
+        ConsumerConfig consumerConfig = new ConsumerConfig();
+        consumerConfig.setCheck(isCheck);
+        return consumerConfig;
     }
 
     @Bean

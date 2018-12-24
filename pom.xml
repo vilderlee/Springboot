@@ -33,6 +33,7 @@
         <java.version>1.8</java.version>
         <common-api.version>1.0.1-SNAPSHOT</common-api.version>
         <protostuff.version>1.6.0</protostuff.version>
+        <slf4j-api.version>1.7.25</slf4j-api.version>
     </properties>
 
     <dependencies>
@@ -170,6 +171,14 @@
                 <artifactId>tools</artifactId>
                 <version>${common-api.version}</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

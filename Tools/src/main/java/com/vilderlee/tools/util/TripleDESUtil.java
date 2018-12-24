@@ -70,6 +70,6 @@ public class TripleDESUtil {
         String a = "springboot";
 
         System.out.println(des3EncodeCBC(a));
-        System.out.println(des3DecodeCBC(des3EncodeCBC(a)));
+        System.out.println(des3DecodeCBC("8gEQVysSYmR0dFfAsxkNSw=="));
     }
 }
