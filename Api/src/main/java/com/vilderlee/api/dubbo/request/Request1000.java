@@ -12,26 +12,31 @@ import com.vilderlee.common.dubbo.BaseRequest;
  */
 public class Request1000 extends BaseRequest {
 
-    private String userId;
-    private String mobile;
+    private String userName;
+    private String mobilePhone;
+    private String password;
 
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getMobilePhone() {
+        return mobilePhone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 
-    @Override public String toString() {
-        return "Request1000{" + "userId='" + userId + '\'' + ", mobile='" + mobile + '\'' + '}';
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

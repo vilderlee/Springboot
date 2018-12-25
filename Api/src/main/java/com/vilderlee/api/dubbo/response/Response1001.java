@@ -11,17 +11,21 @@ import com.vilderlee.common.dubbo.BaseResponse;
  * VilderLee      2018/10/26        TODO
  * </pre>
  */
-public class Response1000 extends BaseResponse {
+public class Response1001 extends BaseResponse {
 
     private static final long serialVersionUID = -3147659417946422141L;
 
-    private boolean isSuccess;
+    private UserInfo user;
 
-    public boolean isSuccess() {
-        return isSuccess;
+    public UserInfo getUser() {
+        return user;
     }
 
-    public void setSuccess(boolean success) {
-        isSuccess = success;
+    public void setUser(UserInfo user) {
+        this.user = user;
+    }
+
+    @Override public String toString() {
+        return "Response1000{" + "user=" + user.toString() + '}';
     }
 }
