@@ -39,6 +39,10 @@ import java.lang.reflect.Method;
      * @throws Throwable
      */
     @Before("validate()") private Object before(JoinPoint point) throws Throwable {
+        if (ArraysUtil.isNull(point.getArgs())){
+            return null;
+        }
+
         Object object = point.getArgs()[0];
         Field[] fields = object.getClass().getDeclaredFields();
         for (Field field : fields) {
