@@ -18,8 +18,10 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.io.UnsupportedEncodingException;
 import java.time.Duration;
 
 /**
@@ -43,7 +45,9 @@ import java.time.Duration;
  * VilderLee    2018/12/20      Create this file
  * </pre>
  */
-@Configuration public class CacheConfiguration {
+@Configuration
+@EnableCaching
+public class CacheConfiguration {
 
     /**
      * //设置缓存的默认超时时间：30分钟
@@ -57,7 +61,7 @@ import java.time.Duration;
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
         redisCacheConfiguration = redisCacheConfiguration.entryTtl(Duration.ofMinutes(30L))
-                .disableCachingNullValues()
+                .disableCachingNullValues().prefixKeysWith("UserService")
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(keySerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer((valueSerializer())));
         return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory)).cacheDefaults(redisCacheConfiguration).build();
@@ -69,18 +73,6 @@ import java.time.Duration;
 
     private RedisSerializer<Object> valueSerializer() {
         return new GenericJackson2JsonRedisSerializer();
-    }
-
-    @Bean public KeyGenerator keyGenerator() {
-        return (target, method, params) -> {
-            StringBuilder sb = new StringBuilder();
-            sb.append(target.getClass().getName());
-            sb.append(method.getName());
-            for (Object obj : params) {
-                sb.append(obj.toString());
-            }
-            return sb.toString();
-        };
     }
 
     @Bean public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory redisConnectionFactory) {

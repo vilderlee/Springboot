@@ -14,7 +14,7 @@ import org.springframework.cache.annotation.Cacheable;
  */
 public interface UserInfoDao {
 
-    @Cacheable(key = "#userId")
+    @Cacheable(value="oo",key = "#userId")
     UserInfo getUserInfo(String userId);
 
     @CachePut(key = "#userInfo.userId")

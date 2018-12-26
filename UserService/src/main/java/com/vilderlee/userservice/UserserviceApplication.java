@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @DubboComponentScan("com.vilderlee.userservice.service")
 //@EnableScheduling
 @MapperScan("com.vilderlee.userservice.mapper")
-@EnableCaching
 public class UserserviceApplication {
 
     public static void main(String[] args) {
