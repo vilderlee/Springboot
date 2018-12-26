@@ -1,5 +1,7 @@
 package com.vilderlee.common.validate;
 
+import com.vilderlee.common.annotation.validate.Date;
+import com.vilderlee.common.annotation.validate.DateTime;
 import com.vilderlee.common.annotation.validate.Length;
 import com.vilderlee.common.annotation.validate.Mobile;
 import com.vilderlee.common.annotation.validate.Nullable;
@@ -34,9 +36,11 @@ public class ValidateFactory extends AbstractValidateFactory {
      */
     static {
         map.put(Nullable.class.getSimpleName(), new NullValidate());
-        map.put(Length.class.getSimpleName(), new NullValidate());
-        map.put(Mobile.class.getSimpleName(), new NullValidate());
-        map.put(Pattern.class.getSimpleName(), new NullValidate());
+        map.put(Length.class.getSimpleName(), new LengthValidate());
+        map.put(Mobile.class.getSimpleName(), new MobileValidate());
+        map.put(Pattern.class.getSimpleName(), new PatternValidate());
+        map.put(Date.class.getSimpleName(), new PatternValidate());
+        map.put(DateTime.class.getSimpleName(), new PatternValidate());
     }
 
     private ValidateFactory() {
@@ -78,19 +82,19 @@ public class ValidateFactory extends AbstractValidateFactory {
             isMatch = validatable.validate(annotation, matchObject);
 
             String description = "";
-            Method method = annotation.annotationType().getMethod(METHOD_DESCRIPTION);
+            Method method = annotation.annotationType().getMethod(RegexConstants.METHOD_DESCRIPTION);
             if (null != method) {
                 description = (String) method.invoke(annotation, null);
             }
-            Field field = annotation.annotationType().getField(FIELD_MESSAGE);
+            Field field = annotation.annotationType().getField(RegexConstants.FIELD_MESSAGE);
             if (!StringUtils.isEmpty((String) field.get(null))) {
-                RETURN_MSG = description + field.get(null);
+                RegexConstants.RETURN_MSG = description + field.get(null);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         if (!isMatch) {
-            throw new ValidateException(RETURN_MSG);
+            throw new ValidateException(RegexConstants.RETURN_CODE, RegexConstants.RETURN_MSG);
         }
         return true;
     }

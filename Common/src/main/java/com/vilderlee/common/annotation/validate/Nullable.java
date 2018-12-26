@@ -13,12 +13,16 @@ import java.lang.annotation.Target;
  * VilderLee    2018/12/25      Create this file
  * </pre>
  */
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD,ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Nullable {
 
     boolean value() default false;
-
+    /**
+     * 字段描述
+     *
+     * @return
+     */
     String description();
 
     String MESSAGE = "字段不能为空";

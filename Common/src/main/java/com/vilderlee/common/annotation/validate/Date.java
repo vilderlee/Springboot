@@ -6,20 +6,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *
- * @Target: 表示注解的作用域
- * @Retention: 表示注解的运行范围
  * <pre>
  * Modify Information:
  * Author        Date          Description
  * ============ ============= ============================
- * VilderLee    2018/12/25      Create this file
+ * VilderLee    2018/12/26      Create this file
  * </pre>
  */
-
-@Target({ElementType.PARAMETER,ElementType.TYPE})
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
+@Nullable(description = "日期")
+public @interface Date {
 
-public @interface Validate {
-    String value() default "";
+    String pattern() default "yyyyMMdd";
+
+    String MESSAGE = "字段日期格式不正确";
 }

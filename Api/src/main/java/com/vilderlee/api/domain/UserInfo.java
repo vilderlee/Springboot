@@ -19,6 +19,8 @@ public class UserInfo implements Serializable {
     private String userName;
     private String password;
     private String userId;
+
+    @Nullable(description = "手机号码")
     @Mobile
     private String mobilePhone;
 

@@ -14,9 +14,17 @@ import java.lang.annotation.Annotation;
  */
 public class LengthValidate implements Validatable {
     @Override
-    public boolean validate(Annotation pattern, Object o) throws ValidateException {
+    public boolean validate(Annotation annotation, Object o) throws ValidateException {
         if (o instanceof String) {
-            return ((String) o).matches(Regex.MOBILE_REGEX);
+            try {
+                int length = (int) annotation.annotationType().getField(RegexConstants.METHOD_VALUE).get(null);
+                return ((String)o).length() == length;
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+
         }
         return false;
     }

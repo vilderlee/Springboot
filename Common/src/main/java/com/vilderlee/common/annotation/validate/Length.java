@@ -17,6 +17,20 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Length {
-    String length();
+
+    /**
+     * length value
+     *
+     * @return
+     */
+    int value() default 0;
+
+    /**
+     * 字段描述
+     *
+     * @return
+     */
     String description();
+
+    String MESSAGE = "字段长度不符合条件";
 }

@@ -12,13 +12,6 @@ import java.lang.annotation.Annotation;
  */
 public abstract class AbstractValidateFactory {
 
-    protected static final String METHOD_DESCRIPTION = "description";
-    protected static final String METHOD_PATTERN = "pattern";
-    protected static final String FIELD_MESSAGE = "MESSAGE";
-    protected static String RETURN_MSG  = "MESSAGE";
-    protected static String RETURN_PATTERN = "Pattern is not Null!";
-
-
     /**
      * 获取验证器
      *

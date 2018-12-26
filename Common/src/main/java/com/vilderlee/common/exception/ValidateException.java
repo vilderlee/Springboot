@@ -9,8 +9,12 @@ package com.vilderlee.common.exception;
  * </pre>
  */
 public class ValidateException extends RuntimeException {
-    public ValidateException() {
-        super();
+
+    private String code;
+
+    public ValidateException(String code, String message) {
+        super(message);
+        this.code = code;
     }
 
     public ValidateException(String message) {
@@ -27,5 +31,9 @@ public class ValidateException extends RuntimeException {
 
     protected ValidateException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
+    }
+
+    public String getCode() {
+        return code;
     }
 }

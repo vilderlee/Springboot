@@ -17,7 +17,7 @@ public class MobileValidate implements Validatable {
     @Override
     public boolean validate(Annotation annotation, Object o) throws ValidateException {
         if (o instanceof String) {
-            return ((String) o).matches(Regex.MOBILE_REGEX);
+            return ((String) o).matches(RegexConstants.MOBILE_REGEX);
         }
         return false;
     }

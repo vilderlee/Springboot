@@ -7,6 +7,8 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
@@ -22,6 +24,8 @@ import java.lang.reflect.Method;
  * </pre>
  */
 @Component @Aspect public class ValidateAop {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Pointcut(value = "execution(* com.vilderlee.gateway.controller..*.*(..))") public void validate() {
     }
@@ -51,7 +55,7 @@ import java.lang.reflect.Method;
                 try {
                     ValidateFactory.getInstance().match(annotation, o);
                 } catch (ValidateException e) {
-                    throw new ValidateException(e.getMessage());
+                    throw new ValidateException(e.getCode(), e.getMessage());
                 }
             }
         }

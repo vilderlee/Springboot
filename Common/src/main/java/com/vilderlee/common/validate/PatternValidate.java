@@ -14,7 +14,17 @@ import java.lang.annotation.Annotation;
  */
 public class PatternValidate implements Validatable {
     @Override
-    public boolean validate(Annotation annotation,Object o) throws ValidateException {
+    public boolean validate(Annotation annotation, Object o) throws ValidateException {
+        if (o instanceof String) {
+            try {
+                String pattern = (String) annotation.annotationType().getField(RegexConstants.METHOD_PATTERN).get(null);
+                return ((String) o).matches(pattern);
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
         return false;
     }
 }
