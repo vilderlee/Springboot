@@ -1,13 +1,12 @@
-package com.vilderlee.mq;
+package com.vilderlee.seata;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class MqApplication {
+@SpringBootApplication public class SeataApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MqApplication.class, args);
+        SpringApplication.run(SeataApplication.class, args);
     }
 
 }
