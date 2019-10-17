@@ -1,0 +1,41 @@
+mybatis:
+  mapper-locations: classpath:mapper/sharding/*.xml
+#端口号
+server:
+  port: 8080
+#数据库连接
+spring:
+  shardingsphere:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      names: shard_order_0,shard_order_1
+      shard_order_0:
+
+        url: jdbc:mysql://49.234.234.31:3306/shard_order_0
+        username: root
+        password: admin
+      shard_order_1:
+        url: jdbc:mysql://49.234.234.31:3306/shard_order_1
+        username: root
+        password: admin
+    props:
+      sql:
+        show: true  #打印sql
+    sharding:
+      tables:
+        orders:
+          actualDataNodes: shard_order_$->{0..1}.orders_$->{0..1}
+          databaseStrategy:
+            inline:
+              shardingColumn:  adddate
+          tableStrategy:
+            inline:
+              shardingColumn: id
+        orders_detail:
+          actualDataNodes: shard_order_$->{0..1}.orders_detail_$->{0..1}
+          tableStrategy:
+            inline:
+              shardingColumn: orders_id
+  devtools:
+    restart:
+      enabled: false

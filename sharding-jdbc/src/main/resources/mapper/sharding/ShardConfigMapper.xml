@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vilderlee.sharding.jdbc.mapper.ShardConfigMapper">
+ 
+    <resultMap id="shardConfigResult" type="com.vilderlee.sharding.jdbc.model.ShardConfig">
+        <id property="configKey" column="config_key"></id>
+        <result property="configValue" column="config_value"></result>
+    </resultMap>
+    
+    
+    <sql id="all_fields">
+        config_key, config_value
+    </sql>
+
+    <select id="findOneByConfigKey" parameterType="string" resultMap="shardConfigResult">
+        select <include refid="all_fields"/> from shard_config where config_key = #{configKey}
+    </select>
+
+
+    <select id="selectByKey" parameterType="java.util.List" resultMap="shardConfigResult">
+        select config_key, config_value
+        from shard_config
+        where config_key in
+        <foreach collection="keys" item="key" open="(" separator="," close=")">
+            #{key}
+        </foreach>
+    </select>
+</mapper>
