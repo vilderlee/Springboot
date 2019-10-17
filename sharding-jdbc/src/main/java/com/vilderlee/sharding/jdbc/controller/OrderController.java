@@ -1,10 +1,13 @@
 package com.vilderlee.sharding.jdbc.controller;
 
+import com.vilderlee.sharding.jdbc.mapper.OrdersMapper;
 import com.vilderlee.sharding.jdbc.model.Orders;
 import groovy.util.logging.Slf4j;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,20 +24,25 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Slf4j
-@Api("订单相关")
+@Api(tags = "订单相关")
 @RequestMapping("/order")
 public class OrderController {
 
 
-
+    @Autowired
+    private OrdersMapper ordersMapper;
 
     @PostMapping("/")
     @ApiOperation("新增订单")
-    @ApiImplicitParams(
-            {}
-    )
+//    @ApiImplicitParam(name = "order", value = "用户订单", required = true, paramType = "body",
+//                    dataType = "Orders")
     public boolean save(Orders order){
-
+        int result = ordersMapper.saveOrder(order);
+        if (result!=1){
+            return false;
+        }else {
+            return true;
+        }
     }
 
 }
