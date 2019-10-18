@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.vilderlee.sharding.jdbc.mapper.ShardConfigMapper">
+<mapper namespace="com.vilderlee.sharding.jdbc.mapper.noshard.ShardConfigMapper">
  
     <resultMap id="shardConfigResult" type="com.vilderlee.sharding.jdbc.model.ShardConfig">
         <id property="configKey" column="config_key"></id>

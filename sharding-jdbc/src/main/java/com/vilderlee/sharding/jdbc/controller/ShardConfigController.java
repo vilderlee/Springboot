@@ -1,6 +1,6 @@
 package com.vilderlee.sharding.jdbc.controller;
 
-import com.vilderlee.sharding.jdbc.mapper.ShardConfigMapper;
+import com.vilderlee.sharding.jdbc.mapper.noshard.ShardConfigMapper;
 import com.vilderlee.sharding.jdbc.model.ShardConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

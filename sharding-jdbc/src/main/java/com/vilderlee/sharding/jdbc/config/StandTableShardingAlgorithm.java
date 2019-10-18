@@ -17,8 +17,15 @@ import java.util.Collection;
  * </pre>
  */
 @Component
-public class StandTableShardingAlgorithm implements PreciseShardingAlgorithm {
-    @Override public String doSharding(Collection collection, PreciseShardingValue preciseShardingValue) {
-        return null;
+public class StandTableShardingAlgorithm implements PreciseShardingAlgorithm<String> {
+    @Override
+    public String doSharding(Collection<String> collection,
+            PreciseShardingValue<String> preciseShardingValue) {
+        int id = Integer.parseInt(preciseShardingValue.getValue());
+        if ((id & 1) == 1){
+            return (String) collection.toArray()[0];
+        }else {
+            return (String) collection.toArray()[1];
+        }
     }
 }

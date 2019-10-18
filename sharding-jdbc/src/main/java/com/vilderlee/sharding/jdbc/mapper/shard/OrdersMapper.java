@@ -1,6 +1,8 @@
-package com.vilderlee.sharding.jdbc.mapper;
+package com.vilderlee.sharding.jdbc.mapper.shard;
 
 import com.vilderlee.sharding.jdbc.model.Orders;
+
+import java.util.List;
 
 /**
  * 类说明:
@@ -16,4 +18,5 @@ public interface OrdersMapper {
 
     int saveOrder(Orders order);
 
+    List<Orders> findAll();
 }

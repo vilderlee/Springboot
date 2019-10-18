@@ -9,10 +9,10 @@ import org.apache.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -72,12 +72,6 @@ public class DataSourceConfig {
         shardingRuleConfig.getTableRuleConfigs().add(getOrderDetailTableRuleConfiguration());
 
         shardingRuleConfig.setDefaultDataSourceName("shard_order_0");
-//        shardingRuleConfig.setDefaultDatabaseShardingStrategyConfig(
-//                new StandardShardingStrategyConfiguration(databaseOrderShardingColumn,
-//                        standDatabasePreciseShardingAlgorithm));
-//        shardingRuleConfig.setDefaultTableShardingStrategyConfig(
-//                new StandardShardingStrategyConfiguration(tableOrderShardingColumn, standTableShardingAlgorithm));
-
         return ShardingDataSourceFactory.createDataSource(getDataSourceMap(), shardingRuleConfig, new Properties());
     }
 
@@ -92,7 +86,7 @@ public class DataSourceConfig {
 
         DruidDataSource dataSource2 = new DruidDataSource();
         dataSource2.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource2.setUrl("jdbc:mysql://49.234.234.31:3306/shard_order_0");
+        dataSource2.setUrl("jdbc:mysql://49.234.234.31:3306/shard_order_1");
         dataSource2.setUsername("root");
         dataSource2.setPassword("root");
         dataSourceMap.put("shard_order_1", dataSource2);
@@ -119,6 +113,21 @@ public class DataSourceConfig {
                 standTableShardingAlgorithm));
         return tableRuleConfiguration;
     }
+
+    @Bean("shardSqlSessionFactory")
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(
+                "classpath*:/mapper/sharding/*.xml"));
+        return sqlSessionFactoryBean.getObject();
+    }
+
+    @Bean("sqlSessionTemplate")
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("shardSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception{
+        return new SqlSessionTemplate(sqlSessionFactory);
+    }
+
 
     @Bean
     public DataSourceTransactionManager transactionManager(DataSource dataSource) {

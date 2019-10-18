@@ -1,9 +1,7 @@
-mybatis:
-  mapper-locations: classpath:mapper/sharding/*.xml
-#端口号
+#绔彛
 server:
   port: 8080
-#数据库连接
+#閰嶇疆
 spring:
   shardingsphere:
     datasource:
@@ -20,14 +18,14 @@ spring:
         password: admin
     props:
       sql:
-        show: true  #打印sql
+        show: true  #鏄剧ずsql
     sharding:
       tables:
         orders:
           actualDataNodes: shard_order_$->{0..1}.orders_$->{0..1}
           databaseStrategy:
             inline:
-              shardingColumn:  adddate
+              shardingColumn:  addDate
           tableStrategy:
             inline:
               shardingColumn: id

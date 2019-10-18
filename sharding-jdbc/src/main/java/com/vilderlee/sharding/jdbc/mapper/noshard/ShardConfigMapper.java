@@ -1,4 +1,4 @@
-package com.vilderlee.sharding.jdbc.mapper;
+package com.vilderlee.sharding.jdbc.mapper.noshard;
 
 import com.vilderlee.sharding.jdbc.model.ShardConfig;
 import org.apache.ibatis.annotations.Mapper;

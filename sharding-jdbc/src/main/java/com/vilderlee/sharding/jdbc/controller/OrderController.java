@@ -1,16 +1,17 @@
 package com.vilderlee.sharding.jdbc.controller;
 
-import com.vilderlee.sharding.jdbc.mapper.OrdersMapper;
+import com.vilderlee.sharding.jdbc.mapper.shard.OrdersMapper;
 import com.vilderlee.sharding.jdbc.model.Orders;
 import groovy.util.logging.Slf4j;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 类说明:
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/order")
 public class OrderController {
 
-
     @Autowired
     private OrdersMapper ordersMapper;
 
@@ -45,4 +45,10 @@ public class OrderController {
         }
     }
 
+
+    @GetMapping("/findAll")
+    @ApiOperation("查询所有订单")
+    public List<Orders> findAll(){
+        return ordersMapper.findAll();
+    }
 }
