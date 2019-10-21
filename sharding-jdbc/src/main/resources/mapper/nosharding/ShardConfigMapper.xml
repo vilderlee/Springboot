@@ -18,7 +18,7 @@
     </select>
 
 
-    <select id="selectByKey" parameterType="java.util.List" resultMap="shardConfigResult">
+    <select id="findAllByKey" parameterType="java.util.List" resultMap="shardConfigResult">
         select config_key, config_value
         from shard_config
         where config_key in
@@ -26,4 +26,9 @@
             #{key}
         </foreach>
     </select>
+
+
+    <insert id="save" parameterType="com.vilderlee.sharding.jdbc.model.ShardConfig">
+        insert into shard_config (<include refid="all_fields"/>) values (#{configKey},#{configValue})
+    </insert>
 </mapper>

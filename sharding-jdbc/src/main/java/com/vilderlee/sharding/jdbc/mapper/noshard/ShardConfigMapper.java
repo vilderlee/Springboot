@@ -31,4 +31,6 @@ public interface ShardConfigMapper {
      */
     List<ShardConfig> findAllByKey(List<String> keys);
 
+
+    void save(ShardConfig shardConfig);
 }
