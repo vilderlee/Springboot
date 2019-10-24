@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.lang.management.ManagementFactory;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * 类说明:
@@ -25,12 +26,11 @@ import java.util.Date;
  */
 @Slf4j
 @Component
-@Job(jobName = "MyElasticJob", cron = "0/15 * * * * ?", shardingTotalCount = 1)
+@Job(jobName = "MyElasticJob", cron = "0/15 * * * * ?", shardingTotalCount = 2, failover = true)
 public class MyElasticJob implements SimpleJob {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
 
     @PostConstruct
     public void init(){
@@ -40,9 +40,9 @@ public class MyElasticJob implements SimpleJob {
     @Override public void execute(ShardingContext shardingContext) {
         String name = ManagementFactory.getRuntimeMXBean().getName();
 
-        System.out.printf("shardingContext.getShardingItem() is %d", shardingContext.getShardingItem());
+        System.out.printf("shardingContext.getShardingItem() is %d\n", shardingContext.getShardingItem());
 
-        jdbcTemplate.update("INSERT INTO batch VALUES (?,?,?)", 3, new Date(System.currentTimeMillis()),
+        jdbcTemplate.update("INSERT INTO batch VALUES (?,?,?)", new Random().nextInt(), new Date(),
                 name.split("@")[0]);
 
     }
