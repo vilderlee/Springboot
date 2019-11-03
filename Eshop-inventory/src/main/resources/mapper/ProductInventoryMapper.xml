@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vilderlee.eshopinventory.mapper.ProductInventoryMapper">
+
+    <update id="updateInventoryCntDao" parameterType="com.vilderlee.eshopinventory.model.ProductInventory">
+        UPDATE inventory_cnt
+        SET cnt = #{inventoryCnt}
+        WHERE productId = #{productId}
+    </update>
+
+
+    <select id="findProductInventory" resultType="com.vilderlee.eshopinventory.model.ProductInventory">
+        SELECT productId, cnt as inventoryCnt FROM inventory_cnt WHERE productId = #{productId}
+    </select>
+</mapper>

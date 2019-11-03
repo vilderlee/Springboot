@@ -20,4 +20,10 @@ public class EshopInventoryApplicationTests {
 		System.out.println(redisDAO.get("user.name"));
 	}
 
+
+	@Test
+	public void del(){
+		redisDAO.delete("key为product:inventory:1");
+		System.out.println(redisDAO.get("key为product:inventory:1"));
+	}
 }

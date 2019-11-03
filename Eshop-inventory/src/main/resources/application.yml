@@ -2,11 +2,14 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://192.168.33.14:3306
+      url: jdbc:mysql://192.168.33.14:3306/eshop
       username: root
       password: Root.123
       min-idle: 3
       max-active: 5
+  application:
+    name: E-Shop-Inventory
 
 mybatis:
   mapper-locations: classpath*:/mapper/*.xml
+

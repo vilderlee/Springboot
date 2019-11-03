@@ -1,6 +1,6 @@
 package com.vilderlee.eshopinventory.service;
 
-import com.vilderlee.eshopinventory.dto.User;
+import com.vilderlee.eshopinventory.model.User;
 
 import java.util.List;
 

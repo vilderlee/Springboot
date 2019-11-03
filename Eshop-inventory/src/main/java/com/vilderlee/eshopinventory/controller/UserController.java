@@ -1,6 +1,6 @@
 package com.vilderlee.eshopinventory.controller;
 
-import com.vilderlee.eshopinventory.dto.User;
+import com.vilderlee.eshopinventory.model.User;
 import com.vilderlee.eshopinventory.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

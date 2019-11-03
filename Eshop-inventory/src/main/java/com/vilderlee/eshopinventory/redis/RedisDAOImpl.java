@@ -26,4 +26,9 @@ public class RedisDAOImpl implements RedisDAO{
     public String get(String key) {
         return jedisCluster.get(key);
     }
+
+    @Override
+    public long delete(String key) {
+        return jedisCluster.del(key);
+    }
 }

@@ -1,6 +1,6 @@
-package com.vilderlee.eshopinventory.dao;
+package com.vilderlee.eshopinventory.mapper;
 
-import com.vilderlee.eshopinventory.dto.User;
+import com.vilderlee.eshopinventory.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2019/8/26 11:32 下午
  */
 @Repository
-public interface UserDao {
+public interface UserMapper {
 
     User getUserById(long id);
 

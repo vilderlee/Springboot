@@ -1,7 +1,7 @@
 package com.vilderlee.eshopinventory.impl;
 
-import com.vilderlee.eshopinventory.dao.UserDao;
-import com.vilderlee.eshopinventory.dto.User;
+import com.vilderlee.eshopinventory.mapper.UserMapper;
+import com.vilderlee.eshopinventory.model.User;
 import com.vilderlee.eshopinventory.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserMapper userDao;
 
     @Override
     public User getUser(long id) {

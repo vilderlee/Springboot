@@ -1,4 +1,4 @@
-package com.vilderlee.eshopinventory.dto;
+package com.vilderlee.eshopinventory.model;
 
 import lombok.Data;
 
