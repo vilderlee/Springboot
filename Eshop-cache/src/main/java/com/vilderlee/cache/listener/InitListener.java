@@ -26,6 +26,6 @@ public class InitListener implements ServletContextListener {
 
         WebApplicationContext context = WebApplicationContextUtils.findWebApplicationContext(sce.getServletContext());
         ApplicationContext.setContext(context);
-        new Thread(new KafkaConsumerThread("cache-Message")).start();
+//        new Thread(new KafkaConsumerThread("cache-Message")).start();
     }
 }

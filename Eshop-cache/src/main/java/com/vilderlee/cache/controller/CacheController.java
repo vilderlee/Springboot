@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 功能描述:
@@ -49,6 +50,11 @@ public class CacheController {
 
     @RequestMapping("/getProductInfo")
     public ProductInfo getProductInfo(@RequestParam(value = "productId") Long id) {
+        try {
+            TimeUnit.SECONDS.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         ProductInfo productInfo = cacheService.getProductInfoFromLocalCache(id);
         System.out.println(productInfo);
         return cacheService.getProductInfo2RedisCache(id);

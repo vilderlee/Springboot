@@ -1,13 +1,13 @@
-package com.vilderlee.hystrix;
+package com.vilderlee.netty;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HystrixApplication {
+public class NettyApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HystrixApplication.class, args);
+        SpringApplication.run(NettyApplication.class, args);
     }
 
 }

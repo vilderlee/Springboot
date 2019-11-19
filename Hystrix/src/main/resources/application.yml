@@ -9,20 +9,8 @@ spring:
       max-active: 5
   application:
     name: E-Shop-Inventory
-  redis:
-    cluster:
-      nodes:
-        - 192.168.33.11:6379
-        - 192.168.33.12:6379
-        - 192.168.33.13:6379
-  kafka:
-    bootstrap-servers:
-      - 192.168.33.11:9092
-      - 192.168.33.12:9092
-      - 192.168.33.13:9092
+
 mybatis:
   mapper-locations: classpath*:/mapper/*.xml
-
-
 server:
-  port: 8080
+  port: 8081

@@ -6,9 +6,10 @@ import com.netflix.hystrix.HystrixCommandKey;
 import com.netflix.hystrix.HystrixCommandProperties;
 import com.netflix.hystrix.HystrixThreadPoolKey;
 import com.netflix.hystrix.HystrixThreadPoolProperties;
+import com.vilderlee.hystrix.model.ProductInfo;
 
 /**
- * 类说明:
+ * 类说明: 线程池隔离
  *
  * <pre>
  * Modify Information:
@@ -17,23 +18,24 @@ import com.netflix.hystrix.HystrixThreadPoolProperties;
  * VilderLee    2019/10/15      Create this file
  * </pre>
  */
-public class GetStockServiceCommand extends HystrixCommand<String> {
+public class GetProductServiceCommand extends HystrixCommand<ProductInfo> {
 
-    private StockService stockService;
+    private Long productId;
 
-    public GetStockServiceCommand(HystrixCommandGroupKey group) {
+    public GetProductServiceCommand(Long productId) {
         super(setter());
+        this.productId = productId;
     }
 
     private static Setter setter() {
         //服务分组
-        HystrixCommandGroupKey groupKey = HystrixCommandGroupKey.Factory.asKey("stock");
+        HystrixCommandGroupKey groupKey = HystrixCommandGroupKey.Factory.asKey("ProductInfoGroup");
 
         //服务标识
-        HystrixCommandKey commandKey = HystrixCommandKey.Factory.asKey("getStock");
+        HystrixCommandKey commandKey = HystrixCommandKey.Factory.asKey("getProduct");
 
         //线程池名称
-        HystrixThreadPoolKey threadPoolKey = HystrixThreadPoolKey.Factory.asKey("stock-pool");
+        HystrixThreadPoolKey threadPoolKey = HystrixThreadPoolKey.Factory.asKey("Product-pool");
 
         //线程池配置
         HystrixThreadPoolProperties.Setter poolProperties = HystrixThreadPoolProperties.Setter()
@@ -44,7 +46,8 @@ public class GetStockServiceCommand extends HystrixCommand<String> {
 
         //命令属性配置
         HystrixCommandProperties.Setter commandProperties = HystrixCommandProperties.Setter()
-                .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD);
+                .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
+                .withExecutionTimeoutInMilliseconds(10000);
 
         return HystrixCommand.Setter.withGroupKey(groupKey)
                 .andCommandKey(commandKey)
@@ -54,7 +57,9 @@ public class GetStockServiceCommand extends HystrixCommand<String> {
 
     }
 
-    @Override protected String run() throws Exception {
-        return stockService.getStock();
+    @Override
+    protected ProductInfo run() throws Exception {
+        ProductService productService = new ProductService();
+        return productService.getStock(productId);
     }
 }

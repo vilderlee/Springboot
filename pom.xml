@@ -26,6 +26,7 @@
         <module>Common</module>
         <module>Tools</module>
         <module>sharding-jdbc</module>
+        <module>Hystrix</module>
     </modules>
 
     <properties>
@@ -153,12 +154,14 @@
             </dependency>
 
             <!--序列化工具kryo-->
-            <!-- https://mvnrepository.com/artifact/com.esotericsoftware/kryo -->
+            <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
             <dependency>
-                <groupId>com.esotericsoftware</groupId>
-                <artifactId>kryo</artifactId>
-                <version>4.0.0</version>
+                <groupId>org.dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>2.1.1</version>
             </dependency>
+
+
 
             <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
             <dependency>
