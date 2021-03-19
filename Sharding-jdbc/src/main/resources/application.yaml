@@ -10,11 +10,11 @@ spring:
       names: shard_order_0,shard_order_1
       shard_order_0:
 
-        url: jdbc:mysql://9.135.90.238:8080/shard_order_0
+        url:
         username: root
         password: 123456
       shard_order_1:
-        url: jdbc:mysql://9.135.90.238:8080/shard_order_1
+        url:
         username: root
         password: 123456
     props:

@@ -91,14 +91,14 @@ public class DataSourceConfig {
         Map<String, DataSource> dataSourceMap = new HashMap<>(2);
         DruidDataSource dataSource1 = new DruidDataSource();
         dataSource1.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource1.setUrl("jdbc:mysql://9.135.90.238:8080/shard_order_0");
+        dataSource1.setUrl("");
         dataSource1.setUsername("root");
         dataSource1.setPassword("123456");
         dataSourceMap.put("shard_order_0", dataSource1);
 
         DruidDataSource dataSource2 = new DruidDataSource();
         dataSource2.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource2.setUrl("jdbc:mysql://9.135.90.238:8080/shard_order_1");
+        dataSource2.setUrl("");
         dataSource2.setUsername("root");
         dataSource2.setPassword("123456");
         dataSourceMap.put("shard_order_1", dataSource2);
@@ -162,7 +162,7 @@ public class DataSourceConfig {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager
-                .getConnection("jdbc:mysql://9.135.90.238:8080/shard_order_0", "root", "123456");
+                .getConnection("", "root", "123456");
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
         preparedStatement.execute();
