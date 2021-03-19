@@ -1,6 +1,7 @@
 #端口
 server:
   port: 8080
+  Integer
 #配置
 spring:
   shardingsphere:
@@ -9,13 +10,13 @@ spring:
       names: shard_order_0,shard_order_1
       shard_order_0:
 
-        url: jdbc:mysql://49.234.234.31:3306/shard_order_0
+        url: jdbc:mysql://9.135.90.238:8080/shard_order_0
         username: root
-        password: admin
+        password: 123456
       shard_order_1:
-        url: jdbc:mysql://49.234.234.31:3306/shard_order_1
+        url: jdbc:mysql://9.135.90.238:8080/shard_order_1
         username: root
-        password: admin
+        password: 123456
     props:
       sql:
         show: true  #显示sql
@@ -37,3 +38,6 @@ spring:
   devtools:
     restart:
       enabled: false
+
+
+

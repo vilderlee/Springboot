@@ -1,6 +1,10 @@
 package com.vilderlee.sharding.jdbc.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.shardingsphere.api.config.sharding.ShardingRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.TableRuleConfiguration;
@@ -57,6 +61,8 @@ public class DataSourceConfig {
 
     @Autowired
     private StandDatabasePreciseShardingAlgorithm standDatabasePreciseShardingAlgorithm;
+    @Autowired
+    private StandDatabasePreciseShardingAlgorithm1 standDatabasePreciseShardingAlgorithm1;
 
     @Autowired
     private StandTableShardingAlgorithm standTableShardingAlgorithm;
@@ -64,6 +70,10 @@ public class DataSourceConfig {
     @Bean
     public DataSource dataSource() throws SQLException {
         ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
+
+        shardingRuleConfig.setDefaultDatabaseShardingStrategyConfig(
+                new StandardShardingStrategyConfiguration(ordersLogicTable,
+                        standDatabasePreciseShardingAlgorithm1));
         shardingRuleConfig.getBindingTableGroups().add(ordersLogicTable);
         shardingRuleConfig.getBindingTableGroups().add(ordersDetailLogicTable);
         //配置Orders表规则
@@ -72,34 +82,39 @@ public class DataSourceConfig {
         shardingRuleConfig.getTableRuleConfigs().add(getOrderDetailTableRuleConfiguration());
 
         shardingRuleConfig.setDefaultDataSourceName("shard_order_0");
-        return ShardingDataSourceFactory.createDataSource(getDataSourceMap(), shardingRuleConfig, new Properties());
+        Properties properties = new Properties();
+        properties.put("sql.show", true);
+        return ShardingDataSourceFactory.createDataSource(getDataSourceMap(), shardingRuleConfig, properties);
     }
 
     private Map<String, DataSource> getDataSourceMap() {
         Map<String, DataSource> dataSourceMap = new HashMap<>(2);
         DruidDataSource dataSource1 = new DruidDataSource();
         dataSource1.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource1.setUrl("jdbc:mysql://49.234.234.31:3306/shard_order_0");
+        dataSource1.setUrl("jdbc:mysql://9.135.90.238:8080/shard_order_0");
         dataSource1.setUsername("root");
-        dataSource1.setPassword("root");
+        dataSource1.setPassword("123456");
         dataSourceMap.put("shard_order_0", dataSource1);
 
         DruidDataSource dataSource2 = new DruidDataSource();
         dataSource2.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource2.setUrl("jdbc:mysql://49.234.234.31:3306/shard_order_1");
+        dataSource2.setUrl("jdbc:mysql://9.135.90.238:8080/shard_order_1");
         dataSource2.setUsername("root");
-        dataSource2.setPassword("root");
+        dataSource2.setPassword("123456");
         dataSourceMap.put("shard_order_1", dataSource2);
 
         return dataSourceMap;
     }
 
     private TableRuleConfiguration getOrderTableRuleConfiguration() {
-        TableRuleConfiguration tableRuleConfiguration = new TableRuleConfiguration(ordersLogicTable, ordersActualDataNodes);
-        tableRuleConfiguration.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration(databaseOrderShardingColumn,
-                standDatabasePreciseShardingAlgorithm));
-        tableRuleConfiguration.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration(tableOrderShardingColumn,
-                standTableShardingAlgorithm));
+        TableRuleConfiguration tableRuleConfiguration = new TableRuleConfiguration(ordersLogicTable,
+                ordersActualDataNodes);
+//        tableRuleConfiguration.setDatabaseShardingStrategyConfig(
+//                new StandardShardingStrategyConfiguration(databaseOrderShardingColumn,
+//                        standDatabasePreciseShardingAlgorithm));
+        tableRuleConfiguration
+                .setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration(tableOrderShardingColumn,
+                        standTableShardingAlgorithm));
         return tableRuleConfiguration;
     }
 
@@ -107,10 +122,12 @@ public class DataSourceConfig {
     private TableRuleConfiguration getOrderDetailTableRuleConfiguration() {
         TableRuleConfiguration tableRuleConfiguration = new TableRuleConfiguration(ordersDetailLogicTable,
                 ordersDetailActualDataNodes);
-        tableRuleConfiguration.setDatabaseShardingStrategyConfig(new StandardShardingStrategyConfiguration(databaseOrderShardingColumn,
-                standDatabasePreciseShardingAlgorithm));
-        tableRuleConfiguration.setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration(tableOrderShardingColumn,
-                standTableShardingAlgorithm));
+        tableRuleConfiguration.setDatabaseShardingStrategyConfig(
+                new StandardShardingStrategyConfiguration(databaseOrderShardingColumn,
+                        standDatabasePreciseShardingAlgorithm));
+        tableRuleConfiguration
+                .setTableShardingStrategyConfig(new StandardShardingStrategyConfiguration(tableOrderShardingColumn,
+                        standTableShardingAlgorithm));
         return tableRuleConfiguration;
     }
 
@@ -124,7 +141,8 @@ public class DataSourceConfig {
     }
 
     @Bean("sqlSessionTemplate")
-    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("shardSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception{
+    public SqlSessionTemplate sqlSessionTemplate(
+            @Qualifier("shardSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
@@ -137,6 +155,22 @@ public class DataSourceConfig {
     @Bean
     public JdbcTemplate jdbcTemplate() throws SQLException {
         return new JdbcTemplate(dataSource());
+    }
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        String sql = "Select * FROM orders_0 WHERE id = 1 and JSON_UNQUOTE(JSON_EXTRACT(extra , '$.username')) = 'lichao' ";
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager
+                .getConnection("jdbc:mysql://9.135.90.238:8080/shard_order_0", "root", "123456");
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.execute();
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        System.out.println();
+
     }
 
 }

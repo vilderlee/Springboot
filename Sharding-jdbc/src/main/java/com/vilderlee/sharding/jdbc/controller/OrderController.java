@@ -51,6 +51,12 @@ public class OrderController {
     }
 
 
+    @PostMapping("/test")
+    public Orders test(String xxx){
+        Orders orders = ordersMapper.find(xxx);
+        return orders;
+    }
+
     @GetMapping("/findAll")
     @ApiOperation("查询所有订单")
     public List<Orders> findAll(){

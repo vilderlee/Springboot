@@ -52,4 +52,6 @@ public class Orders {
     @ApiModelProperty(value = "创建时间")
     private String addDate;
 
+    private String extra;
+
 }

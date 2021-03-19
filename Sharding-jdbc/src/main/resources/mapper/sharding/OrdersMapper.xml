@@ -18,4 +18,5 @@
     <select id="findAll" resultType="com.vilderlee.sharding.jdbc.model.Orders">
         select <include refid="all_fields"/> from orders
     </select>
+<!--    <select id="find"></select>-->
 </mapper>
