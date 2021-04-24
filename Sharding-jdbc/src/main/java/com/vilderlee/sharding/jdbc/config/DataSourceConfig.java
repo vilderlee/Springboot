@@ -37,7 +37,7 @@ import java.util.Properties;
  * VilderLee    2019/10/17      Create this file
  * </pre>
  */
-@Configuration
+//@Configuration
 public class DataSourceConfig {
 
     @Value("${spring.shardingsphere.sharding.tables.orders.actualDataNodes}")

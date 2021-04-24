@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * VilderLee    2019/10/17      Create this file
  * </pre>
  */
-@RestController
+//@RestController
 @Slf4j
 @RequestMapping("/shardConfig")
 @Api(tags = "配置管理")

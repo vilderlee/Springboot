@@ -30,9 +30,9 @@ public class NoShardDataSourceConfig {
     public DataSource noShardDataSource(){
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("");
-        dataSource.setUsername("root");
-        dataSource.setPassword("123456");
+        dataSource.setUrl("jdbc:mysql://9.139.4.29:8080/json_test");
+        dataSource.setUsername("apaas");
+        dataSource.setPassword("wJ2i0ybZUxN88U@#");
         return dataSource;
     }
 

@@ -26,7 +26,7 @@ import java.util.List;
  * VilderLee    2019/10/17      Create this file
  * </pre>
  */
-@RestController
+//@RestController
 @Slf4j
 @Api(tags = "订单相关")
 @RequestMapping("/order")

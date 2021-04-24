@@ -9,9 +9,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @SpringBootApplication
 @MapperScans({
         @MapperScan(basePackages = "com.vilderlee.sharding.jdbc.mapper.noshard", sqlSessionFactoryRef =
-                "noShardSqlSessionFactory"),
-        @MapperScan(basePackages = "com.vilderlee.sharding.jdbc.mapper.shard", sqlSessionFactoryRef =
-                "shardSqlSessionFactory") })
+                "noShardSqlSessionFactory")})
 public class ShardingJdbcApplication {
 
     public static void main(String[] args) {
