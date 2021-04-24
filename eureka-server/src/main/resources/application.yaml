@@ -1,0 +1,19 @@
+server:
+  port: 80
+eureka:
+  client:
+    register-with-eureka: false
+    registry-fetch-interval-seconds: 3
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:80/eureka
+  server:
+    enable-self-preservation: false
+    response-cache-update-interval-ms: 3000
+    eviction-interval-timer-in-ms: 6000 #检查心跳
+  instance:
+    lease-renewal-interval-in-seconds: 3
+
+spring:
+  application:
+    name: eureka
